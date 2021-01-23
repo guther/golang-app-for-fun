@@ -12,12 +12,6 @@ jenkins:
           - "Overall/Read:authenticated"
   remotingSecurity:
     enabled: true
-  job:
-    name: job-generator
-    builders:
-      - dsl:
-          script-text:
-            !include-raw hello-world.dsl
 security:
   queueItemAuthenticator:
     authenticators:

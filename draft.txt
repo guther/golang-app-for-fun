@@ -6,7 +6,7 @@ docker image rm $(docker images -f "dangling=true" -q)
 #	jenkins
 
 docker image build -f Dockerfile-jenkins -t guther2/jenkins-docker .
-docker container run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --volume /home:/mnt/hoster --volume $SSH_AUTH_SOCK:/ssh-agent --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password --env SSH_AUTH_SOCK=/ssh-agent -it --rm --name jenkinscontainer guther2/jenkins-docker
+docker container run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --volume  $(pwd):/mnt/host --volume $SSH_AUTH_SOCK:/ssh-agent --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password --env SSH_AUTH_SOCK=/ssh-agent -it --rm --name jenkinscontainer guther2/jenkins-docker
 
 
 #	python
@@ -15,15 +15,12 @@ docker run -d -it --network=host --volume $(pwd)/jenkins_jobs:/etc/jenkins_jobs 
 
 docker exec -it python bash 
 pip install --user jenkins-job-builder
-/root/.local/bin/jenkins-jobs update /root/.local/bin/hello-world.yaml
-exit
-
-
-docker exec -it python ./etc/jenkins_jobs/job_builder.py
+/root/.local/bin/jenkins-jobs update /etc/jenkins_jobs/seed.yaml
+./etc/jenkins_jobs/jobs_generator.py
 
 
 
 #	golang
 
-docker build --ssh default --progress=plain -f /mnt/hoster/Dockerfile-golang --secret id=mysecret,src=/mnt/c/Users/guthe/Documents/ssh-secret.txt -t guther2/golang .
+docker build --ssh default --progress=plain -f /mnt/host/Dockerfile-golang --secret id=mysecret,src=/mnt/c/Users/guthe/Documents/ssh-secret.txt -t guther2/golang .
 docker run --volume $SSH_AUTH_SOCK:/ssh-agent --env SSH_AUTH_SOCK=/ssh-agent -it --rm --name hostgatorchallenge guther2/golang bash

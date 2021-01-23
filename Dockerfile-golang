@@ -4,9 +4,6 @@ FROM golang:1.14
     WORKDIR /go/src/app
     COPY . .
 
-    # shows secret from default secret location:
-    #RUN --mount=type=secret,id=mysecret,dst=/foobar cat /foobar
-
     # Download public key for github.com
     
     RUN mkdir -p -m 0600 ~/.ssh 
@@ -15,7 +12,7 @@ FROM golang:1.14
     #RUN go get -d -v ./...
     #RUN go install -v ./...
 
-    RUN --mount=type=ssh git clone git@github.com:guther/guther.git myproject
+    #RUN --mount=type=ssh git clone git@github.com:guther/guther.git myproject
    
 
  

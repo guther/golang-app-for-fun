@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+    jenkins:
+        container_name: guther2_jenkinscontainer
+        build: 
+            context: .
+            dockerfile: Dockerfile-jenkins
+            network: host
+        ports: 
+            - 8080:8080
+        env_file: .env
+        volumes:
+            - type: bind
+              source: .
+              target: /mnt/host
+            - type: bind
+              source: /var/run/docker.sock
+              target: /var/run/docker.sock
+            - type: bind
+              source: $SSH_AUTH_SOCK
+              target: /ssh-agent
+    python:
+        image: python
+        network_mode: "service:jenkins"
+        depends_on: 
+            - jenkins
+        volumes:
+            - type: bind
+              source: ./jenkins_jobs
+              target: /etc/jenkins_jobs
+        command: bash -c " 
+                ./etc/jenkins_jobs/wait_jenkins.sh
+                ; pip install --user jenkins-job-builder
+                ; /root/.local/bin/jenkins-jobs update /etc/jenkins_jobs/seed.yaml
+                ; ./etc/jenkins_jobs/jobs_generator.py
+                ; echo If you wanna keep this service up ever then put 'tail -f /dev/null' here in this line
+                "
+
