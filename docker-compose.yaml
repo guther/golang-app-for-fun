@@ -20,6 +20,14 @@ services:
       - type: bind
         source: $SSH_AUTH_SOCK
         target: /ssh-agent
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
   web:
     image: golang
     working_dir: /go/src
@@ -27,7 +35,7 @@ services:
     ports:
       - "6060:8080"
     environment:
-      - PORT=8080
+      - MYSQL_ROOT_PASSWORD=root
     depends_on:
       - mysql
     volumes:
@@ -35,8 +43,9 @@ services:
         source: ./api/src
         target: /go/src
     command: bash -c "
-      go get github.com/gin-gonic/gin
-      ; go get github.com/dgrijalva/jwt-go
+      go get -u github.com/gin-gonic/gin
+      ; go get -u github.com/dgrijalva/jwt-go
+      ; go get -u github.com/go-sql-driver/mysql
       ; go run /go/src/main/main.go"
   python:
     image: python
@@ -53,11 +62,3 @@ services:
       ; /root/.local/bin/jenkins-jobs update /etc/jenkins_jobs/seed.yaml
       ; ./etc/jenkins_jobs/jobs_generator.py
       ; echo If you wanna keep this service up ever then put 'tail -f /dev/null' here in this line"
-  mysql:
-    container_name: mysql
-    image: mysql:latest
-    restart: always
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-    ports:
-      - "3306:3306"

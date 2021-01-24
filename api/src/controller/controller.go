@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//login contorller interface
+// login controller interface
 type LoginController interface {
 	Login(c *gin.Context) string
 }
