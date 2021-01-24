@@ -2,7 +2,7 @@ version: "3"
 
 services:
   jenkins:
-    container_name: guther2_jenkinscontainer
+    container_name: jenkins_container
     build:
       context: .
       dockerfile: Dockerfile-jenkins
@@ -21,7 +21,7 @@ services:
         source: $SSH_AUTH_SOCK
         target: /ssh-agent
   mysql:
-    container_name: mysql
+    container_name: mysql_container
     image: mysql:latest
     restart: always
     environment:
@@ -29,6 +29,7 @@ services:
     ports:
       - "3306:3306"
   web:
+    container_name: web_container
     image: golang
     working_dir: /go/src
     privileged: true
@@ -61,4 +62,4 @@ services:
       ; pip install --user jenkins-job-builder
       ; /root/.local/bin/jenkins-jobs update /etc/jenkins_jobs/seed.yaml
       ; ./etc/jenkins_jobs/jobs_generator.py
-      ; echo If you wanna keep this service up ever then put 'tail -f /dev/null' here in this line"
+      ; tail -f /dev/null"
