@@ -109,5 +109,14 @@ You will then see two jobs created at startup.
 
 CI is the job that performs the Continuous Integration pipeline with the test steps. It clones the repository, runs the tests and stores the log.
 
+# Flow Diagram for /breeds
+
+![Jobs](https://raw.githubusercontent.com/guther/webnotify/master/images/diagrama_de_fluxo_breeds.jpg)
+
+
+# Flow Diagram for /login
+
+![Jobs](https://raw.githubusercontent.com/guther/webnotify/master/images/diagrama_de_fluxo_login.jpg)
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
