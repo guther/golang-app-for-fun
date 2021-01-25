@@ -1,0 +1,7 @@
+*.dsl:Zone.Identifier
+api/bin/
+api/pkg/
+api/src/github.com
+api/src/golang.org
+api/src/gopkg.in
+api/src/google.golang.org/

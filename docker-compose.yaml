@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  jenkins:
+    container_name: jenkins_container
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+      network: host
+    ports:
+      - 8080:8080
+    env_file: .env
+    volumes:
+      - type: bind
+        source: .
+        target: /mnt/host
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: $SSH_AUTH_SOCK
+        target: /ssh-agent
+  mysql:
+    container_name: mysql_container
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "3306:3306"
+  web:
+    container_name: web_container
+    image: golang
+    working_dir: /go/src
+    privileged: true
+    ports:
+      - "6060:8080"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    depends_on:
+      - mysql
+    volumes:
+      - type: bind
+        source: ./api/src
+        target: /go/src
+    command: bash -c "
+      go get -u github.com/gin-gonic/gin
+      ; go get -u github.com/dgrijalva/jwt-go
+      ; go get -u github.com/go-sql-driver/mysql
+      ; go run /go/src/main/main.go"
+  python:
+    image: python
+    network_mode: "service:jenkins"
+    depends_on:
+      - jenkins
+    volumes:
+      - type: bind
+        source: ./jenkins_jobs
+        target: /etc/jenkins_jobs
+    command: bash -c "
+      ./etc/jenkins_jobs/wait_jenkins.sh
+      ; pip install --user jenkins-job-builder
+      ; /root/.local/bin/jenkins-jobs update /etc/jenkins_jobs/seed.yaml
+      ; ./etc/jenkins_jobs/jobs_generator.py
+      ; tail -f /dev/null"
