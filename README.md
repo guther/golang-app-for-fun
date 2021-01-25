@@ -1,214 +1,103 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
--->
+# HostGator Challenging
 
+HostGator Latin America
 
+## Installation
 
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+Clone the repository: 
+```bash
+git clone git@github.com:guther/hostgator-challenge.git
+```
+Enter the directory and do the command:
 
+```bash
+docker-compose up
+```
+  
 
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">Best-README-Template</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
-</p>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
-
-### Built With
-
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This will create the necessary containers for the application to work.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+At the end, the application will be active at the address [http://localhost:6060](http://localhost:6060), however it is necessary to authenticate beforehand. Otherwise, you will receive error 401 (Not authenticated).
+
+Authenticate sending a POST request to [http://localhost:6060/login](http://localhost:6060/login) along with the user data:
+
+`body: '{" password ":"@#$RF@!718"," username ":" admin "}`
+
+You will receive the token (JWT).
+Use this token to perform requests.
+
+## Requisitos de Implementação
+
+- JWT
+- Cache com MySQL
+- RESTful
+- Golang (bonus :-) .. using Gin framework!!! :P
+- Private repository on GitHub
+- Several commits during the development
+- Unit Tests
+- Database Schema using migrations
+- CI Pipeline using Jenkins
+
+Agora eu irei passar por cada item acima e explicar como a aplicação foi desenvolvida. Okay?
+
+Ao tocar conhecimento dos itens da aplicação pesquisei como poderia facilitar a vida do meu avaliador, de tal forma que no arranque da aplicação já fosse possível ter tudo configurado. 
+E acredite, essa aplicação é assim.
+
+# JWT
+
+Como já informei, a aplicação usa JWT para efetuar a autenticação.
+![JWT](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/postmantoken.jpg?token=AEWA2JO67DZSSGUL4TUSFPDABX67E)
+O token está configurado para explicar em 48 horas e tomou-se cuidado para usar os códigos corretos do HTTP, tal como o retorno do código 401 em vez do 403, pois trata-se de uma autenticação, cuja autorização está concedida mediante login. 
+
+# Cache 
+
+Usei o MySQL como solicitado. O esquema do banco de dados foi feito usando migration, e embora tenha optado por não usar nenhum framework de ORM, a base de dados está consistente e tolerante a falhas. Isto é: (Agora vai uma dica de teste para vocês fazerem com os meus concorrentes) Quando o esquema da base de dados já existe e você muda a senha do banco, ocorre o erro de autenticação que é o velho conhecido dos desenvolvedores, né?! Mas, e quando você já altera a senha do banco antes mesmo da migração ocorrer? Hummmm... é um outro erro. E a aplicação tem que ser tolerante a isso para verificar o momento que poderá criar a base de dados e o  funcionamento do cache passará a ocorrer.
+![Schema](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/migrations.jpg?token=AEWA2JPFPRPR5AN6AHEABYDABYAKO)
+
+# RESTful
+Com as boas práticas, não usei nomes de verbos nas rotas e usei os códigos HTTP de acordo com o desejado. Não tive necessidade de tratar os métodos PUT e DELETE, pois a aplicação só possui GET e POST, conforme enunciado.
+
+# Golang
+Eu nunca tinha usado o Golang na minha vida! Acredita? E não tenho medo algum de dizer isso, é super sério! Mas, como todos nós sabemos que quem domina os paradigmas aprende rápido (e eu já fui monitor de disciplina de Algoritmo na faculdade), foi exatamente isso que aconteceu. Confesso que amei o funcionamento do panic, defer e recover e somado ao uso do middleware gin.Recovery() ficou sensacional.
+Usei o framework Gin nessa aplicação.
+Aprendi muito nesses 5 dias, desde que recebi essa prova na Terça-Feira. 
+
+# Private repository on GitHub
+Aqui é mais uma dica de avaliação dos meu concorrentes, pois com o repositório privado aumenta o nível de dificuldade devido a necessidade de troca de informação entre os containers e o host. Há complicação de SSL, problema de keychain com o .ssh/id_rsa, etc. Só não vale retirar o repositório do modo privado e nem expor as credenciais para todo mundo ver. (Tokens? pessoais?! Não!)
+
+# Several commits during the development
+Eu acho que fiz bastante commit para 5 dias, hein?
+Os commits estão aí, todos com mensagens e cada um com sua feature.
+
+# Unit Tests
+Esse aqui foi uma das melhores partes! O Golang ajuda muito a criar testes unitários com o ``` go test ```.
+O Jenkins ficou responsável por executar os testes e podemos visualizar o Pipeline em execução.
+
+![pipeline](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/pipeline.jpg?token=AEWA2JNSFH47EQAX64QBHI3ABYFLI)
+
+Esse job também não é criado manualmente, é automático.
+Usei o plugin Job DSL para fazer isso. Veja o formato SDL, é outro formato.
+
+![jsdl](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/jdsl.jpg?token=AEWA2JMRY7PCL7XP5U6GIJ3ABYFXI)
+
+Esse código sdl cria o **job-generator**, que é apenas uma seed para criar os reais jobs no Jenkins, como o job CI, por exemplo.
+
+# Jenkins
+
+Para pular todas as etapas de configuração do **Jenkins**, usei a prática do **JCasC - Jenkins Configuration as Code** e não temos que passar pela criação de usuário e senha, criação de jobs, plugins, etc. Ao acessar a página [http://localhost:8080](http://localhost:8080) você já cai na tela de login. 
+![cockerfile](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/dockerfile.jpg?token=AEWA2JMDL3YZVSTO6A57TMDABYCCY)
+Para obter isso, usei o jenkins-plugin-cli direto no Dockerfile em conjunto com a configuração do casc.yaml compartilhada pra imagem do Jenkins no momento do up do Composer.
+![casc](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/casc.yaml.jpg?token=AEWA2JNWNH42ORAOEEJCXQTABYCKI)
 
 
+Informe as credenciais: **admin** e **password**.
 
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Então você irá ver dois jobs criados no momento da inicialização.
+![Jobs](https://raw.githubusercontent.com/guther/hostgator-challenge/dev/images/jobs.jpg?token=AEWA2JNX64OBW22PHXLQLWLABYARY)
+O CI é o job responsável pelo Pipeline da Integração Contínua com as etapas de testes. Ele realiza o clone do repositório, roda os testes e armazena o log.
 
 
-
-<!-- LICENSE -->
 ## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
-
-
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[MIT](https://choosealicense.com/licenses/mit/)
