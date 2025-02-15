@@ -1,6 +1,6 @@
-# HostGator Challenge
+# Golang Project
 
-HostGator Latin America
+Just for fun!
 
 ## Installation
 
@@ -28,23 +28,17 @@ Authenticate sending a POST request to [http://localhost:6060/login](http://loca
 You will receive the token (JWT).
 Use this token to perform requests.
 
-## Requisitos de Implementação
+## Items
 
 - JWT
-- Cache com MySQL
+- Cache in MySQL
 - RESTful
-- Golang (bonus :-) .. using Gin framework!!! :P
-- Private repository on GitHub
-- Several commits during the development
+- Golang (using Gin framework)
 - Unit Tests
 - Database Schema using migrations
 - CI Pipeline using Jenkins
 
 Now we will see each item above to understand better how the application was developed. Okay?
-
-Upon becoming aware of the application's items, I researched how it could facilitate the life of my appraiser, in such a way that when starting the application it was already possible to have everything configured.
-And believe me, this application is like that.
-
 
 # JWT
 
@@ -57,7 +51,7 @@ The token is set to expire in 48 hours and care has been taken to use the correc
 
 # Cache 
 
-I used MySQL as requested. The database schema was made using migration, and although it chose not to use any ORM framework, the database is consistent and fault tolerant. That is: (Now here's a test tip for you to do with my competitors) When the database schema already exists and you change the database password, there is an authentication error, which is the old acquaintance of the developers, huh?! But, what about when you change the database password even before the migration takes place? Hummmm ... it's another mistake. And the application has to be tolerant of this to verify the moment that it can create the database and the cache will start to function.
+I used MySQL. The database schema was made using migration, and although it chose not to use any ORM framework, the database is consistent and fault tolerant. 
 
 ![Schema](https://raw.githubusercontent.com/guther/webnotify/master/images/migrations.jpg)
 
@@ -66,16 +60,7 @@ I used MySQL as requested. The database schema was made using migration, and alt
 With good practices, I did not use verb names in the routes and used the HTTP codes as desired. I did not have to deal with the PUT and DELETE methods, as the application only has GET and POST, as stated.
 
 # Golang
-I had never used Golang in my life! Can you believe it? And I'm not afraid to say that, it's super serious! But, as we all know that anyone who knows programming paradigms well learns fast (and I was an Algorithm subject monitor in college), that's exactly what happened. I confess that I loved the operation of the panic, defer and recover function and added to the use of the middleware gin.Recovery () was very good.
 I used the Gin framework in this application.
-I learned a lot in those 5 days, since I received this test on Tuesday.
-
-# Private repository on GitHub
-Here is another tip for evaluating my competitors, because with the private repository the level of difficulty increases due to the need to exchange information between the containers and the host. There is SSL complication, key problem with .ssh/id_rsa, ssh-agent, ssh-add, etc. It's just not worth removing the repository privately or exposing credentials for everyone to see. (Personal tokens ?! No!)
-
-# Several commits during the development
-I think I committed a lot for 5 days, huh?
-The commits are there, all with messages and each with its own feature.
 
 # Unit Tests
 This one was one of the best parts! Golang helps a lot to create unit tests with the command ``` go test ```.
